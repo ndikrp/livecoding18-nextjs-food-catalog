@@ -2,8 +2,10 @@ import Link from "next/link";
 
 import logoImg from "@/assets/logo.png";
 import classes from "./main-header.module.css";
+import { cookies } from "next/headers";
 
 export default function MainHeader() {
+  const user = cookies().get("token");
   return (
     <header className={classes.header}>
       <Link className={classes.logo} href="/">
@@ -18,6 +20,13 @@ export default function MainHeader() {
           </li>
           <li>
             <Link href="/community">Foodies Community</Link>
+          </li>
+          <li>
+            {!user ? (
+              <Link href="/login">Login</Link>
+            ) : (
+              <Link href="/users">Manage Users</Link>
+            )}
           </li>
         </ul>
       </nav>
